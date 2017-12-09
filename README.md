@@ -8,13 +8,10 @@ in the same directory where **_SI507F17_finalproject.py_** is.
 displayed in the command line. 
 
 ### Website Guide
-        <p style="font-size:160%">
-            You can search player's stats in <a href = "/player"><b><font color = #FF333>player</font></b></a> website. The search words are not case sensitive, but be aware of typying the full name of the player you are looking for.For example, 'Lebron James', 'lebron james' and 'leBron jAMes' are eligible key words. But 'james','James' and 'jAMEs' do not work here. The search result contains two tables. One of them is the average stats this season, while the other is the total stats. The tables have mulitiple rows if the player plays for different team this season. In this case, the last row of the table is the overall stats. 
-            Below the table, there are three histgrams about average points, average assists and average rebounds respectively. The black point in each histgram indicates where the player's stat locate. The is a pie chart decribing the player's distribution of points scored by three-point, field goals and free throw. 
-        </p>
-        <p style="font-size:160%">
-            The website <a href = "/team"><b><font color = #FF333>team</font></b></a> is desinged for getting the team stats this season. You will get both offense and diffence stats of each teams. The keyword is the city where it locates, except for <i>'LA Clippers'</i> and <i>'LA Lakers'</i>. 
-            Below the table, there are two groups of histgrams about average points, average assists and average rebounds respectively at both offence and defence end. The black point in each histgram indicates where the team's stat locate. The is a pie chart decribing the teams's distribution of points scored by three-point, field goals and free throw. 
-        </p>
-        <p style="font-size:160%">
-           The database can be updated by clicking <b><i>Update</i></b> button. Because the data is scraped from website. It will take at most one minutes. Please be patient and enjoy the database. 
+   This website is designed to get latest NBA Player stats and Team stats. Before exploring the website, please read the following instructions.
+   You can search player's stats in **_player_** website. The search words are not case sensitive, but be aware of typying the full name of the player you are looking for.For example, 'Lebron James', 'lebron james' and 'leBron jAMes' are eligible key words. But 'james','James' and 'jAMEs' do not work here. The search result contains two tables. One of them is the average stats this season, while the other is the total stats. 
+   The tables have mulitiple rows if the player plays for different team this season. In this case, the last row of the table is the overall stats. 
+   Below the table, there are three histgrams about average points, average assists and average rebounds respectively. The black point in each histgram indicates where the player's stat locate. The is a pie chart decribing the player's distribution of points scored by three-point, field goals and free throw. 
+   The website **_team_** is desinged for getting the team stats this season. You will get both offense and diffence stats of each teams. The keyword is the city where it locates, except for _'LA Clippers'_ and _'LA Lakers'_. 
+    Below the table, there are two groups of histgrams about average points, average assists and average rebounds respectively at both offence and defence end. The black point in each histgram indicates where the team's stat locate. The is a pie chart decribing the teams's distribution of points scored by three-point, field goals and free throw. 
+    The database can be updated by clicking **_Update_** button. Because the data is scraped from website. It will take at most one minutes. Please be patient and enjoy the database.
