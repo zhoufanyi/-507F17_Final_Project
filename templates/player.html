@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <!-- Title of the web page -->
+        <title>Search Player</title>
+
+        <!-- Let's add a bit of styling to make it look pretty -->
+        <link rel="stylesheet" href="/static/style.css">
+
+    </head>
+
+    {# This is what a jinja tempalte comment looks like #}
+    <!-- This is what an HTML comment looks like -->
+
+    <body>
+        <div class="content">
+            <!-- TODO A form for asking the question -->
+            <!-- send data to route '/player' -->
+            <form action="/player" method = "get">
+                <label>
+                    <b>Search for player</b>
+                    <input type ="text" name ="name">
+                </label>
+                <button type = "submit">Send</button>
+            </form>
+            <!-- display the answers from instant answers api -->
+            <p class="response">
+                {% if (search and results1) %}
+                    <b>{{ search }}</b>
+                    <br> <!-- <br> creates a line break -->
+                    <table style="width:100%">
+                        <caption>Average Stats</caption>
+                        <tr>
+                            <th>Player</th>
+                            <th>Team</th>
+                            <th>Games</th>
+                            <th>Time</th>
+                            <th>FGA</th>
+                            <th>FGM</th>
+                            <th>FG%</th>
+                            <th>FTA</th>
+                            <th>FTM</th>
+                            <th>FT%</th>
+                            <th>3PA</th>
+                            <th>3PM</th>
+                            <th>3PT%</th>
+                            <th>Pts</th>
+                            <th>Off</th>
+                            <th>Def</th>
+                            <th>Reb</th>
+                            <th>Ast</th>
+                            <th>Stl</th>
+                            <th>BLK</th>
+                            <th>TO</th>
+                            <th>PF</th>
+                        </tr>
+                        <tbody>
+                            {% for item in results1 %}
+                                <tr>
+                                    {% for value in item.values() %}
+                                        <td>{{value}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                            {% if respones.get('results3') %}
+                                <tr>
+                                    {% for value in respones.get('results3').values() %}
+                                        <td>{{value}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    <br>
+                    <table style="width:100%">
+                        <caption>Total Stats</caption>
+                        <tr>
+                            <th>Player</th>
+                            <th>Team</th>
+                            <th>Games</th>
+                            <th>Time</th>
+                            <th>FGA</th>
+                            <th>FGM</th>
+                            <th>FTA</th>
+                            <th>FTM</th>
+                            <th>3PA</th>
+                            <th>3PM</th>
+                            <th>Pts</th>
+                            <th>Off</th>
+                            <th>Def</th>
+                            <th>Reb</th>
+                            <th>Ast</th>
+                            <th>Stl</th>
+                            <th>BLK</th>
+                            <th>TO</th>
+                            <th>PF</th>
+                        </tr>
+                        <tbody>
+                            {% for item in results2 %}
+                                <tr>
+                                    {% for value in item.values() %}
+                                        <td>{{value}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                            {% if respones.get('results4') %}
+                                <tr>
+                                    {% for value in respones.get('results4').values() %}
+                                        <td>{{value}}</td>
+                                    {% endfor %}
+                                </tr> 
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    {% if respones.get('all_plot') %}
+                        <p><img src="data:image/png;base64,{{ respones.get('all_plot') }}" width="800"></p>
+                    {% endif %}
+                {% elif (search) %}
+                    <b>{{ question }}</b><br>
+                    I don't know :(
+                {% endif %}
+            </p>
+        </div>
+    </body>
+</html>
