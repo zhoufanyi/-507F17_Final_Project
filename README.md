@@ -1,0 +1,20 @@
+# -507F17_Final_Project
+
+### Before use
+1. Create a virtual environment and install required modules described in **_requirement.txt_**.
+2. Create a database and include database name, username and password in the **_config.py_** file. The **_config.py_** file shuold be put
+in the same directory where **_SI507F17_finalproject.py_** is.
+3. The program starts up by **_python SI507F17_finalproject.py runserver_** in command line. Open any web browser and go to the localhost  
+displayed in the command line. 
+
+### Website Guide
+        <p style="font-size:160%">
+            You can search player's stats in <a href = "/player"><b><font color = #FF333>player</font></b></a> website. The search words are not case sensitive, but be aware of typying the full name of the player you are looking for.For example, 'Lebron James', 'lebron james' and 'leBron jAMes' are eligible key words. But 'james','James' and 'jAMEs' do not work here. The search result contains two tables. One of them is the average stats this season, while the other is the total stats. The tables have mulitiple rows if the player plays for different team this season. In this case, the last row of the table is the overall stats. 
+            Below the table, there are three histgrams about average points, average assists and average rebounds respectively. The black point in each histgram indicates where the player's stat locate. The is a pie chart decribing the player's distribution of points scored by three-point, field goals and free throw. 
+        </p>
+        <p style="font-size:160%">
+            The website <a href = "/team"><b><font color = #FF333>team</font></b></a> is desinged for getting the team stats this season. You will get both offense and diffence stats of each teams. The keyword is the city where it locates, except for <i>'LA Clippers'</i> and <i>'LA Lakers'</i>. 
+            Below the table, there are two groups of histgrams about average points, average assists and average rebounds respectively at both offence and defence end. The black point in each histgram indicates where the team's stat locate. The is a pie chart decribing the teams's distribution of points scored by three-point, field goals and free throw. 
+        </p>
+        <p style="font-size:160%">
+           The database can be updated by clicking <b><i>Update</i></b> button. Because the data is scraped from website. It will take at most one minutes. Please be patient and enjoy the database. 
