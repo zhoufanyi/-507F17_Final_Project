@@ -30,17 +30,17 @@
 ### Program Detail
 #### class Player
 This class is initialized with a string team name and a per game stat dictionary. Player class have two method which return a dictionary of player's per game stat and player's aggregate stat. All values in the returning dictionaries are modified to meet requirements of psql command. The str method returns a description of the player's average stat.  
-> _Player A_ plays _12_ games for _Team X_ this season with averge _10_ points, _3.2_ Rebounds and _4.2_ Assists.
-The contain method takes _minutes_ as a float input and return True if the player plays more than the input miniutes in this team.  Suppose _Player A_ playes 9 minutes per game in _Team A_.
+> _Player A_ plays _12_ games for _Team X_ this season with averge _10_ points, _3.2_ Rebounds and _4.2_ Assists.  
+The contain method takes _minutes_ as a float input and return True if the player plays more than the input miniutes in this team.  Suppose _Player A_ playes 9 minutes per game in _Team A_.  
 > _10 in Player A_ is false.  
 
 #### class team, team_defence and team_offence
 The class team is initialized with a stat dictionary. The method get_team_stat returns self.team_stat which is a dictionary. Team_defence and team_offence are subclasses derived from team. These classes should be initialized through class method process_dict().
 The str method of team_defence and team_offence gives a brief description of the team's stats.  
-str(team_defence)  
->_Team A_ lets opponent get _100_ points this season with _39%_  field goal percentage and _32%_ three-points percentage.  
-str(team_offence)
->_Team A_ scores _100_ points this season with _39%_  field goal percentage and _32%_ three-points percentage.
+str(team_defence)    
+>_Team A_ lets opponent get _100_ points this season with _39%_  field goal percentage and _32%_ three-points percentage.    
+str(team_offence)  
+>_Team A_ scores _100_ points this season with _39%_  field goal percentage and _32%_ three-points percentage.  
 The contain method of both class takes _point_ as a float input. The contain methond of team defence returns whether the team let the opponets score more than the _point_ on average. The one of team offence returns whether the team scores more than the _point_ on average.
 
 ### Caching System
