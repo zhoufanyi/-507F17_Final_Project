@@ -2,10 +2,9 @@
 
 ### Before use
 1. Create a virtual environment and install required modules described in **_requirement.txt_**.
-2. Create a database and include database name, username and password in the **_config.py_** file. The **_config.py_** file shuold be put
-in the same directory where **_SI507F17_finalproject.py_** is.
-3. The program starts up by **_python SI507F17_finalproject.py runserver_** in command line. Open any web browser and go to the localhost  
-displayed in the command line. 
+2. Create a database and include database name, username and password in the **_config.py_** file. The **_config.py_** file shuold be put in the same directory where **_SI507F17_finalproject.py_** is.
+3. The program starts up by **_python SI507F17_finalproject.py runserver_** in command line. Open any web browser and go to the localhost displayed in the command line.
+4. Except for step 3, users are supposed to interact with the program through the web browser.
 
 ### Website Guide
    This website is designed to get latest NBA Player stats and Team stats. Before exploring the website, please read the following instructions.  
@@ -26,3 +25,8 @@ displayed in the command line.
    ![](https://github.com/zhoufanyi/-507F17_Final_Project/blob/master/example3.png)  
    
    The database can be updated by clicking **_Update_** button. Because the data is scraped from website. It will take at most one minute. Please be patient and enjoy the database.
+
+### Program Detail
+#### class Player
+This class is initialized with a str and a dictionary. Player class have two method which return a dictionary of player's per game stat and player's aggregate stat. All values in the returning dictionaries are modified to meet requirements of psql command. The str method returns a description of the player's average stat.  
+' _Player A_ plays _12_ games for _Team X_ this season with averge _10_ points, _3.2_ Rebounds and _4.2_ Assists.'
