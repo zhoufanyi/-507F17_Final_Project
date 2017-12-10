@@ -38,7 +38,7 @@ The contain method takes _minutes_ as a float input and return True if the playe
 The class team is initialized with a stat dictionary. The method get_team_stat returns self.team_stat which is a dictionary. Team_defence and team_offence are subclasses derived from team. These classes should be initialized through class method process_dict().
 The str method of team_defence and team_offence gives a brief description of the team's stats.  
 str(team_defence)    
->_Team A_ lets opponent get _100_ points this season with _39%_  field goal percentage and _32%_ three-points percentage.    
+>_Team A_ lets opponent get _100_ points this season with _39%_  field goal percentage and _32%_ three-points percentage. >   
 str(team_offence)  
 >_Team A_ scores _100_ points this season with _39%_  field goal percentage and _32%_ three-points percentage.  
 The contain method of both class takes _point_ as a float input. The contain methond of team defence returns whether the team let the opponets score more than the _point_ on average. The one of team offence returns whether the team scores more than the _point_ on average.
