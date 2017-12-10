@@ -87,6 +87,7 @@ There are four databases connected to the program.
         - "Blocked Shots" REAL NOT NULL,  
         - "Personal Fous" REAL NOT NULL,  
         - "Points" REAL NOT NULL  
+        
 "Team Defence Stats"  
        - "Team" VARCHAR(60) PRIMARY KEY REFERENCES "Team Offence Stats"("Team"),  
        - "Field Goal Attempts" REAL NOT NULL,  
