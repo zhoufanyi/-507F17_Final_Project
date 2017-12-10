@@ -29,4 +29,4 @@
 ### Program Detail
 #### class Player
 This class is initialized with a str and a dictionary. Player class have two method which return a dictionary of player's per game stat and player's aggregate stat. All values in the returning dictionaries are modified to meet requirements of psql command. The str method returns a description of the player's average stat.  
-' _Player A_ plays _12_ games for _Team X_ this season with averge _10_ points, _3.2_ Rebounds and _4.2_ Assists.'
+> _Player A_ plays _12_ games for _Team X_ this season with averge _10_ points, _3.2_ Rebounds and _4.2_ Assists.
