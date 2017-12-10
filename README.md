@@ -44,9 +44,9 @@ The class team is initialized with a stat dictionary. The method get_team_stat r
 The str method of team_defence and team_offence gives a brief description of the team's stats.  
 ```
 print(str(team_defence))    
- _Team A_ lets opponent get _100_ points this season with _39%_  field goal percentage and _32%_ three-points percentage.  
+ Team A lets opponent get 100 points this season with 39%  field goal percentage and 32% three-points percentage.  
 print(str(team_offence))  
-_Team A_ scores _100_ points this season with _39%_  field goal percentage and _32%_ three-points percentage. 
+Team A scores 100 points this season with 39%  field goal percentage and 32% three-points percentage. 
 ```
 The contain method of both class takes _point_ as a float input. The contain methond of team defence returns whether the team let the opponets score more than the _point_ on average. The one of team offence returns whether the team scores more than the _point_ on average.
 
@@ -61,7 +61,99 @@ The database system consits of get_connection_and_cursor(), setup_database(), in
 The data process system is designed for handling the returning list of execute_and_return() when the list contains more than one dictionary. This happens when a player plays for more than one team in a season due to transactions. It will return a dictionary of average stats and aggregate stats in entire season.
 
 ### Plot System
-The plot system contains player_all_plot(), team_offense_plot() and team_defense_plot
+The plot system contains player_all_plot(), team_offense_plot() and team_defense_plot(). These function takes dictionary input and draws histgram and pie chart with matplotlib. Then the figures are encoded in base64. The jinja template will decode them and regenerate figures in browser.
+
+### Flask Part
+There are three routes, which lead to index page, player search page annd team search page. Basically, user only needs to go to the '/' route and access to team by clicking team and to player by clicking player in index page. 
+### Database Detail
+There are four databases connected to the program.
+"Team Offence Stats"
+        "Team" VARCHAR(60) PRIMARY KEY,
+        "Field Goal Attempts" REAL NOT NULL,
+        "Field Goals Made" REAL NOT NULL,        
+        "Field Goal Percentage" REAL NOT NULL,
+        "Free Throw Attempts" REAL NOT NULL,
+        "Free Throws Made" REAL NOT NULL,
+        "Free Throw Percentage" REAL NOT NULL,
+        "3PT Attempts" REAL NOT NULL,
+        "3PT Made" REAL NOT NULL,      
+        "3PT Percentage" REAL NOT NULL,
+        "Offensive Rebounds" REAL NOT NULL,
+        "Defensive Rebounds" REAL NOT NULL,
+        "Total Rebounds" REAL NOT NULL,
+        "Assists" REAL NOT NULL,
+        "Turnover" REAL NOT NULL,
+        "Steal" REAL NOT NULL,
+        "Blocked Shots" REAL NOT NULL,
+        "Personal Fous" REAL NOT NULL,
+        "Points" REAL NOT NULL
+"Team Defence Stats"
+        "Team" VARCHAR(60) PRIMARY KEY REFERENCES "Team Offence Stats"("Team"),
+        "Field Goal Attempts" REAL NOT NULL,
+        "Field Goals Made" REAL NOT NULL,        
+        "Field Goal Percentage" REAL NOT NULL,
+        "Free Throw Attempts" REAL NOT NULL,
+        "Free Throws Made" REAL NOT NULL,
+        "Free Throw Percentage" REAL NOT NULL,
+        "3PT Attempts" REAL NOT NULL,
+        "3PT Made" REAL NOT NULL,      
+        "3PT Percentage" REAL NOT NULL,
+        "Offensive Rebounds" REAL NOT NULL,
+        "Defensive Rebounds" REAL NOT NULL,
+        "Total Rebounds" REAL NOT NULL,
+        "Assists" REAL NOT NULL,
+        "Turnover" REAL NOT NULL,
+        "Steal" REAL NOT NULL,
+        "Blocked Shots" REAL NOT NULL,
+        "Personal Fous" REAL NOT NULL,
+        "Points" REAL NOT NULL
+
+ "Player Stats Per Game"
+        "Player" VARCHAR(60),
+        "Team" VARCHAR(60),
+        "Games" INTEGER NOT NULL,
+        "Minutes Played" INTERVAL MINUTE TO SECOND  NOT NULL,
+        "Field Goals Attempted" REAL NOT NULL,
+        "Field Goals Made" REAL NOT NULL,
+        "Field Goal Percentage" REAL NOT  NULL,
+        "Free Throws Attempted" REAL NOT NULL,
+        "Free Throws Made" REAL NOT NULL,
+        "Free Throw Percentage" REAL NOT NULL,
+        "3PT Shots Attemped" REAL NOT NULL,
+        "3PT Shots Made" REAL NOT NULL,
+        "3PT Percentage" REAL NOT NULL,
+        "Points Scored" REAL NOT NULL,
+        "Offensive Rebounds" REAL NOT NULL,
+        "Defensive Rebounds" REAL NOT NULL,
+        "Rebounds" REAL NOT NULL,
+        "Assists" REAL NOT NULL,
+        "Steals" REAL NOT NULL,
+        "Blocked Shots" REAL NOT NULL,
+        "Turnovers" REAL NOT NULL,
+        "Personal Fouls" REAL NOT NULL,
+         PRIMARY KEY("Player","Team")
+
+"Player Stats Total"
+        "Player" VARCHAR(60),
+        "Team" VARCHAR(60),
+        "Games" INTEGER NOT NULL,
+        "Minutes Played" INTERVAL MINUTE TO SECOND NOT NULL,
+        "Field Goals Attempted" INTEGER NOT NULL,
+        "Field Goals Made" INTEGER NOT NULL,
+        "Free Throws Attempted" INTEGER NOT NULL,
+        "Free Throws Made" INTEGER NOT NULL,
+        "3PT Shots Attemped" INTEGER NOT NULL,
+        "3PT Shots Made" INTEGER NOT NULL,
+        "Points Scored" INTEGER NOT NULL,
+        "Offensive Rebounds" INTEGER NOT NULL,
+        "Defensive Rebounds" INTEGER NOT NULL,
+        "Rebounds" INTEGER NOT NULL,
+        "Assists" INTEGER NOT NULL,
+        "Steals" INTEGER NOT NULL,
+        "Blocked Shots" INTEGER NOT NULL,
+        "Turnovers" INTEGER NOT NULL,
+        "Personal Fouls" INTEGER NOT NULL,
+        PRIMARY KEY("Player","Team")
 
 
 
