@@ -25,7 +25,9 @@ def get_html(title, html = None, directory = None,update = False):
     if update and os.path.exists(os.path.join(path ,title+'.html')):
         os.remove(os.path.join(path ,title+'.html'))
     try:
-        page = open(os.path.join(path ,title+'.html'),'r',encoding = 'utf-8').read()
+        f = open(os.path.join(path ,title+'.html'),'r',encoding = 'utf-8')
+        page = f.read()
+        f.close()
     except:
         page = requests.get(html).text
         f = open(os.path.join(path ,title+'.html'),'w',encoding='utf-8')
@@ -51,27 +53,29 @@ def get_player_stat(html_page):
     players_list = []
     stats_name = []
     player_table_soup = BeautifulSoup(html_page,'html.parser').find('table',{'class':'table stats-table W(100%) Ta(start) Lh(2) Bdcl(c)'})
-    for item in player_table_soup.find_all('th',{'class':'P(0px) Cur(p)'}):
-        if 'title' in item.find('div').attrs.keys():
-            stats_name.append(item.find('div')['title'])
-        else:
-            stats_name.append(item.find('div').text.strip())
-    for player in player_table_soup.find_all('tr',{'class':'Px(cell-padding-x) Py(cell-padding-y) Bdb(row-border) Va(m) Ta(start)'}):
-        stat = list(strip_multi_tag(player,'td'))
-        stats_dict = dict(zip(stats_name,stat))
-        players_list.append(stats_dict)
+    if player_table_soup:
+        for item in player_table_soup.find_all('th',{'class':'P(0px) Cur(p)'}):
+            if 'title' in item.find('div').attrs.keys():
+                stats_name.append(item.find('div')['title'])
+            else:
+                stats_name.append(item.find('div').text.strip())
+        for player in player_table_soup.find_all('tr',{'class':'Px(cell-padding-x) Py(cell-padding-y) Bdb(row-border) Va(m) Ta(start)'}):
+            stat = list(strip_multi_tag(player,'td'))
+            stats_dict = dict(zip(stats_name,stat))
+            players_list.append(stats_dict)
     return players_list
 
 def get_team_stat(html_page):
     team_list = []
     stats_name = []
     team_table_soup = BeautifulSoup(html_page,'html.parser').find('table',{'class':'table graph-table W(100%) Ta(start) Bdcl(c) Mb(20px) Ov(h)'})
-    for item in team_table_soup.find('thead').find_all('th'):
-        stats_name.append(item['title'])
-    for team in team_table_soup.find('tbody').find_all('tr'):
-        stat = list(strip_multi_tag(team,'td'))
-        stats_dict = dict(zip(stats_name,stat))
-        team_list.append(stats_dict)
+    if team_table_soup:
+        for item in team_table_soup.find('thead').find_all('th'):
+            stats_name.append(item['title'])
+        for team in team_table_soup.find('tbody').find_all('tr'):
+            stat = list(strip_multi_tag(team,'td'))
+            stats_dict = dict(zip(stats_name,stat))
+            team_list.append(stats_dict)
     return team_list
 
 #---------------------------class player-----------------------------------#
@@ -160,7 +164,7 @@ class Player:
             }
 
     def __str__(self):
-        return '{} plays {} games this season with averge {} points, {} Rebounds and {} Assists'.format(self.Player,self.Games,self.Points_Scored, self.Total_Rebounds, self.Assists)
+        return '{} plays {} games for {} this season with averge {} points, {} Rebounds and {} Assists.'.format(self.Player,self.Games,self.Team,self.Points_Scored, self.Total_Rebounds, self.Assists)
 
     def __contains__(self,minutes):
         time_minutes = timedelta(minutes = minutes)
@@ -206,10 +210,10 @@ class team_defence(team):
         return cls(stats_dict)
 
     def __str__(self):
-        return '{} lets opponent get {} points this season with {}% field goal percentage and {}% three-points percentage.'.format(self.team_stats['Team'],self.team_stats['Points'],self.team_stats['Field Goal Percentage'],self.team_stats['3PT Percentage'])
+        return '{} lets opponent get {} points this season with {}%  field goal percentage and {}% three-points percentage.'.format(self.team_stats['Team'],self.team_stats['Points'],self.team_stats['Field Goal Percentage'],self.team_stats['3PT Percentage'])
 
     def __contains__(self,point):
-        return float(self.stats_dict['Points']) < point
+        return float(self.team_stats['Points']) < point
 
 class team_offence(team):
     def __init__(self,stats_dict):
@@ -242,8 +246,9 @@ class team_offence(team):
     def __str__(self):
         return '{} scores {} points this season with {}% field goal percentage and {}% three-points percentage.'.format(self.team_stats['Team'],self.team_stats['Points'],self.team_stats['Field Goal Percentage'],self.team_stats['3PT Percentage'])
     
+    
     def __contains__(self,point):
-        return float(self.stats_dict['Points']) > point
+        return float(self.team_stats['Points']) > point
 
 
 ##------------------------Database-----------------------------------------##
@@ -413,7 +418,7 @@ def execute_and_return(query):
         return results
     else:
         return False
-
+#----------------------------------------------------------------#
 def overall_stat(stat_list):
     overall_stat_dict = {}
     overall_stat_dict['Player'] = stat_list[0]['Player']
@@ -521,7 +526,7 @@ def player_all_plot(result):
     Points = [item['Points Scored'] for item in query_result]
     Assists = [item['Assists'] for item in query_result]
     Rebounds = [item['Rebounds'] for item in query_result]
-    plt.figure(figsize=(10,2.5))
+    plt.figure(figsize=(12,3))
     plt.subplot(1,4,1)
     plt.hist(Points,bins = 100, density = True,color = 'red')
     plt.plot(result['Points Scored'],0,'o',color = 'black')
@@ -548,12 +553,12 @@ def player_all_plot(result):
     figdata_png = base64.b64encode(figfile.getvalue())
     return figdata_png
 
-def team_offense_plot(result):
+def team_offence_plot(result):
     query_result = execute_and_return("""SELECT "Points","Assists", "Total Rebounds" FROM "Team Offence Stats" """)
     Points = [item['Points'] for item in query_result]
     Assists = [item['Assists'] for item in query_result]
     Rebounds = [item['Total Rebounds'] for item in query_result]
-    plt.figure(figsize=(10,2.5))
+    plt.figure(figsize=(12,3))
     plt.subplot(1,4,1)
     plt.hist(Points,bins = 10, density = True,color = 'red')
     plt.plot(result['Points'],0,'o',color = 'black')
@@ -580,12 +585,12 @@ def team_offense_plot(result):
     figdata_png = base64.b64encode(figfile.getvalue())
     return figdata_png
 
-def team_defense_plot(result):
+def team_defence_plot(result):
     query_result = execute_and_return("""SELECT "Points","Assists", "Total Rebounds" FROM "Team Defence Stats" """)
     Points = [item['Points'] for item in query_result]
     Assists = [item['Assists'] for item in query_result]
     Rebounds = [item['Total Rebounds'] for item in query_result]
-    plt.figure(figsize=(7.5,2.5))
+    plt.figure(figsize=(9,3))
     plt.subplot(1,3,1)
     plt.hist(Points,bins = 10, density = True,color = 'red')
     plt.plot(result['Points'],0,'o',color = 'black')
@@ -603,15 +608,6 @@ def team_defense_plot(result):
     figfile.seek(0)
     figdata_png = base64.b64encode(figfile.getvalue())
     return figdata_png
-
-#---------------------------------#
-test_dict = {'Player':'A B', 'Games':12,'Minutes Played':'25:30','Field Goals Attempted':15,'Field Goals Made':8,'Field Goal Percentage':53.3,'Free Throws Attempted':5,'Free Throws Made':3,'Free Throw Percentage':60,'3-point Shots Attemped':3,'3-point Shots Made':1,'3-point Percentage':33.3,'Points Scored':22,'Offensive Rebounds':2,'Defensive Rebounds':5,'Total Rebounds':7,'Assists':3,'Steals':3,'Blocked Shots':1,'Turnovers':5,'Personal Fouls':2}
-test_player_1 = Player(test_dict,'Miami Heat')
-test_player_2 = Player(test_dict,'Boston Celtics')
-test_player_1_average = test_player_1.get_average_dict()
-test_player_1_total = test_player_1.get_total_dict()
-test_player_2_average = test_player_1.get_average_dict()
-test_player_2_total = test_player_2.get_total_dict()
 ##----------------------------------##
 db_connection, db_cursor = None, None
 db_connection, db_cursor = get_connection_and_cursor()
@@ -682,13 +678,13 @@ def team_site():
         if not results1:
             results1 = False
         else:
-            respones['offence_plot'] = team_offense_plot(results1[0]).decode('utf-8')
+            respones['offence_plot'] = team_offence_plot(results1[0]).decode('utf-8')
 
         results2 = execute_and_return(query2)
         if not results1:
             results2 = False
         else:
-            respones['defence_plot'] = team_defense_plot(results2[0]).decode('utf-8')
+            respones['defence_plot'] = team_defence_plot(results2[0]).decode('utf-8')
 
     return render_template('team.html',search = search, results1 = results1,results2 = results2,respones = respones)
 
@@ -698,3 +694,4 @@ if __name__ == '__main__':
     insert_update_team_table(db_connection, db_cursor)
     insert_update_player_table(Base_Web,directory='Player_By_Team',conn = db_connection,cur = db_cursor)
     app.run(use_reloader=True, debug = True)
+
