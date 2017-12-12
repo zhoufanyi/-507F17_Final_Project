@@ -15,12 +15,15 @@
     <!-- This is what an HTML comment looks like -->
 
     <body>
+        <form action="/">
+            <input type="submit" value="Back" />
+        </form>
         <div class="content">
             <!-- TODO A form for asking the question -->
             <!-- send data to route '/player' -->
             <form action="/team" method = "get">
                 <label>
-                    <b>Search for player</b>
+                    <b>Search for team</b>
                     <input type ="text" name ="team">
                 </label>
                 <button type = "submit">Send</button>
