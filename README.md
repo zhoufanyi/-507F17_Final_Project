@@ -3,7 +3,7 @@
 ### Before use
 1. Make sure the python version is higher than 3.6
 2. Create a virtual environment and install required modules described in **_requirement.txt_**.
-3. Create a database and include database name, username and password in the **_config.py_** file. The **_config.py_** file shuold be put in the same directory where **_SI507F17_finalproject.py_** is.
+3. Create a database and modify the database name, username and password in the **_config.py_** file. The **_config.py_** file shuold be put in the same directory where **_SI507F17_finalproject.py_** is.
 4. The program starts up by **_python SI507F17_finalproject.py runserver_** in command line.Once you see **_Runnig on_** _http://127.0.0.1: localport/_ in the command line, open any web browser and go to that localhost.
 5. Except for step 3, users are supposed to interact with the program through the web browser.
 6. It takes a while before users are able to interact with the database via web browser at the first time.
